@@ -1,0 +1,263 @@
+# CMPE322 Operating Systems Project: Shooter
+# Author: Mehmet Saraçoğlu
+# Designed as course material for use in the CMPE322 Operating Systems lectures.
+
+# Level: dense planet field, 64 x 64. Thread through the rocks to the exit at the top.
+# 210 planets cover 41% of space; 11 enemies and 2 small nests.
+# One entry per line, '#' starts a comment, y = 0 is the top row, directions are N E S W.
+#   seed        <number>   (not used: the seed comes from the student ID given to the game)
+#   space       <size_x> <size_y>
+#   player_ship [move <d/s>] [bullet <d/s>] [rate <shots/s>]   defaults for the player
+#   enemy_ship  [move <d/s>] [bullet <d/s>] [rate <shots/s>]   defaults for enemies and spawns
+#   spawn       every <seconds>
+#   player      <name> <x> <y> <dir> [move ..] [bullet ..] [rate ..]
+#   enemy       <name> <x> <y> <dir> [move ..] [bullet ..] [rate ..]
+#   planet      <name> <size> <x> <y>                     round, size x size slots; x y = bottom-left slot
+#   station     <name> <START|END|RECHARGE|ENEMY_SPAWN> <x> <y> [energy <n>]
+
+seed  64064
+space 64 64
+
+player_ship move 8 bullet 20 rate 4
+enemy_ship  move 2 bullet 6 rate 0.5
+spawn every 15
+
+# --- start and goal
+player  Hero 32 62 N
+station Home START    32 63
+station Dock RECHARGE 35 62 energy 5
+station Exit END      32 0
+
+# --- stations (7)
+station Dock-1   RECHARGE     10  50 energy 3
+station Dock-2   RECHARGE     54  44 energy 3
+station Dock-3   RECHARGE     20  24 energy 3
+station Dock-4   RECHARGE     46  14 energy 3
+station Dock-5   RECHARGE      8   8 energy 3
+station Nest-1   ENEMY_SPAWN  56   6 energy 2
+station Nest-2   ENEMY_SPAWN   6  34 energy 2
+
+# --- planets (210)
+planet  Ash-1      4  19  52
+planet  Basalt-1   4  42  41
+planet  Cinder-1   5   6  18
+planet  Dune-1     2  27  35
+planet  Ember-1    4  25  28
+planet  Flint-1    2  18  31
+planet  Garnet-1   2  22  42
+planet  Haze-1     5  41  20
+planet  Iron-1     2  62   7
+planet  Jade-1     6  26  15
+planet  Kelp-1     4   4  47
+planet  Loam-1     3  55  56
+planet  Mica-1     3  44   6
+planet  Nickel-1   5  40  62
+planet  Onyx-1     4  53  15
+planet  Pumice-1   2  10  33
+planet  Quartz-1   2  49  47
+planet  Rust-1     2   2  39
+planet  Slate-1    3  15  62
+planet  Talc-1     4  36  18
+planet  Umber-1    4  60  26
+planet  Vapor-1    3  27  45
+planet  Wax-1      4  11   8
+planet  Xenon-1    4  31  22
+planet  Yarrow-1   2   6  23
+planet  Zinc-1     5  13  43
+planet  Ash-2      3   0  22
+planet  Basalt-2   4  13  21
+planet  Cinder-2   4   1  15
+planet  Dune-2     3  41  50
+planet  Ember-2    2  50  57
+planet  Flint-2    2  60  29
+planet  Garnet-2   2   7  29
+planet  Haze-2     3  23  46
+planet  Iron-2     3  59  35
+planet  Jade-2     2  55  24
+planet  Kelp-2     3  19   8
+planet  Loam-2     3  12  13
+planet  Mica-2     4   0  28
+planet  Nickel-2   3   4   9
+planet  Onyx-2     3  61  12
+planet  Pumice-2   2  19  55
+planet  Quartz-2   3  27  53
+planet  Rust-2     4  33  43
+planet  Slate-2    3   2  60
+planet  Talc-2     3  29  57
+planet  Umber-2    3  37  54
+planet  Vapor-2    4  42  25
+planet  Wax-2      2  49  63
+planet  Xenon-2    4  35  29
+planet  Yarrow-2   5  44  12
+planet  Zinc-2     3  55  35
+planet  Ash-3      2  58  12
+planet  Basalt-3   4  33  37
+planet  Cinder-3   4  36  24
+planet  Dune-3     2  33  16
+planet  Ember-3    2   2  53
+planet  Flint-3    4  44  32
+planet  Garnet-3   6  36   7
+planet  Haze-3     4  48  20
+planet  Iron-3     5  59  18
+planet  Jade-3     2  23  55
+planet  Kelp-3     2  19  61
+planet  Loam-3     3  56  45
+planet  Mica-3     3   7  40
+planet  Nickel-3   4  22  61
+planet  Onyx-3     2   3  56
+planet  Pumice-3   3   9   3
+planet  Quartz-3   3  12  26
+planet  Rust-3     3  40  33
+planet  Slate-3    2  23  23
+planet  Talc-3     3  33  11
+planet  Umber-3    2  49  37
+planet  Vapor-3    2  14  47
+planet  Wax-3      4  13  33
+planet  Xenon-3    3  49  52
+planet  Yarrow-3   2  17  46
+planet  Zinc-3     3   4   5
+planet  Ash-4      2  23   6
+planet  Basalt-4   4  31  50
+planet  Cinder-4   2  52   6
+planet  Dune-4     3  44  45
+planet  Ember-4    3  13  37
+planet  Flint-4    2  56  63
+planet  Garnet-4   3  56   4
+planet  Haze-4     4  57  40
+planet  Iron-4     4  26  41
+planet  Jade-4     3  49   3
+planet  Kelp-4     4  11  55
+planet  Loam-4     3  49  24
+planet  Mica-4     4  10  61
+planet  Nickel-4   2  54  31
+planet  Onyx-4     2  37  11
+planet  Pumice-4   3  36  47
+planet  Quartz-4   2   2  31
+planet  Rust-4     3  38  41
+planet  Slate-4    3  31  28
+planet  Talc-4     4  60  45
+planet  Umber-4    3  25  19
+planet  Vapor-4    3  60   4
+planet  Wax-4      2  27   1
+planet  Xenon-4    2   5  52
+planet  Yarrow-4   3  55  52
+planet  Zinc-4     2  16   6
+planet  Ash-5      2  50  12
+planet  Basalt-5   2   0  35
+planet  Cinder-5   2   7  59
+planet  Dune-5     4  52  41
+planet  Ember-5    2  57   9
+planet  Flint-5    4  18  36
+planet  Garnet-5   3  61  63
+planet  Haze-5     4  53  20
+planet  Iron-5     2  22  39
+planet  Jade-5     2  16  53
+planet  Kelp-5     2  15  16
+planet  Loam-5     2  53  10
+planet  Mica-5     3  23  36
+planet  Nickel-5   2  22  27
+planet  Onyx-5     2  25  32
+planet  Pumice-5   2  23  15
+planet  Quartz-5   3  50  29
+planet  Rust-5     2  57  60
+planet  Slate-5    2  11  46
+planet  Talc-5     4  30   7
+planet  Umber-5    3  20   3
+planet  Vapor-5    2  57  48
+planet  Wax-5      3   0  43
+planet  Xenon-5    2  37  61
+planet  Yarrow-5   3  16  28
+planet  Zinc-5     3   0   7
+planet  Ash-6      3  44  56
+planet  Basalt-6   2  35  58
+planet  Cinder-6   2  19  58
+planet  Dune-6     4  60  52
+planet  Ember-6    2  34  55
+planet  Flint-6    2  28  32
+planet  Garnet-6   2  27  49
+planet  Haze-6     2  21  30
+planet  Iron-6     2  41  28
+planet  Jade-6     2  61  59
+planet  Kelp-6     3  19  15
+planet  Loam-6     2  22  11
+planet  Mica-6     4  19  20
+planet  Nickel-6   2  24   1
+planet  Onyx-6     3  14   2
+planet  Pumice-6   2  50  44
+planet  Quartz-6   4  49  34
+planet  Rust-6     2  56  27
+planet  Slate-6    3  26   8
+planet  Talc-6     2  12  50
+planet  Umber-6    3  38  37
+planet  Vapor-6    2   5   1
+planet  Wax-6      2  52  47
+planet  Xenon-6    2  41  46
+planet  Yarrow-6   2   2  18
+planet  Zinc-6     2   3  35
+planet  Ash-7      2  44  36
+planet  Basalt-7   2  37  50
+planet  Cinder-7   2  46  59
+planet  Dune-7     3  26  23
+planet  Ember-7    2   0  46
+planet  Flint-7    2  62  40
+planet  Garnet-7   2  31  31
+planet  Haze-7     2  45  50
+planet  Iron-7     2  62  21
+planet  Jade-7     2  40  12
+planet  Kelp-7     2   6  26
+planet  Loam-7     2   9  21
+planet  Mica-7     2   9  36
+planet  Nickel-7   2  16  57
+planet  Onyx-7     3  52  63
+planet  Pumice-7   2  62  55
+planet  Quartz-7   2  19  40
+planet  Rust-7     2  48   6
+planet  Slate-7    2  49  41
+planet  Talc-7     2   1   3
+planet  Umber-7    2   0  63
+planet  Vapor-7    2  45   1
+planet  Wax-7      2   8  12
+planet  Xenon-7    2  26  56
+planet  Yarrow-7   2   2  50
+planet  Zinc-7     2   1  10
+planet  Ash-8      2  16  13
+planet  Basalt-8   2   7  32
+planet  Cinder-8   2   4  42
+planet  Dune-8     2   6  63
+planet  Ember-8    2  10  30
+planet  Flint-8    2  19  11
+planet  Garnet-8   3   6  56
+planet  Haze-8     2   0  56
+planet  Iron-8     2  54  59
+planet  Jade-8     2  46  62
+planet  Kelp-8     2  26   4
+planet  Loam-8     2   9  25
+planet  Mica-8     2  57  30
+planet  Nickel-8   2  47  27
+planet  Onyx-8     2  37  32
+planet  Pumice-8   2  41  56
+planet  Quartz-8   2  16   9
+planet  Rust-8     2  12  16
+planet  Slate-8    2  20  45
+planet  Talc-8     2  53   3
+planet  Umber-8    2  16  50
+planet  Vapor-8    2  34  32
+planet  Wax-8      2  16  24
+planet  Xenon-8    2  24  52
+planet  Yarrow-8   2  41  53
+planet  Zinc-8     2  30  36
+planet  Ash-9      2  48  15
+planet  Basalt-9   2  10  43
+
+# --- enemies (11)
+enemy   Raider-01   14  10  S
+enemy   Raider-02    9  27  S
+enemy   Raider-03   22   8  S
+enemy   Raider-04   62  35  S
+enemy   Raider-05   44  14  S
+enemy   Raider-06   42   5  S
+enemy   Raider-07   40  28  S
+enemy   Raider-08   52  19  S
+enemy   Raider-09   53  43  S
+enemy   Raider-10   12  21  S
+enemy   Raider-11    0   3  S
