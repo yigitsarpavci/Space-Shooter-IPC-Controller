@@ -21,6 +21,9 @@ build/
 game.fifo
 2D_SPACE_SHOOTER/implementation/game.fifo
 
+# Submission packages
+*.zip
+
 # macOS system files
 .DS_Store
 ._*

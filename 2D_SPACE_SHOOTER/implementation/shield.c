@@ -3,24 +3,38 @@
  * Shield Child Process
  */
 
+#define _POSIX_C_SOURCE 200809L
+
 #include <errno.h>
 #include <fcntl.h>
+#include <signal.h>
 #include <sys/stat.h>
+#include <sys/types.h>
 #include <unistd.h>
+
 #include "fifo_management.h"
 #include "../input.h"
 
-// Resolves the FIFO path based on working directory.
+/*
+ * Resolves the FIFO path based on current working directory.
+ * When running from package root, uses FIFO_PATH ("implementation/game.fifo").
+ * When running from within implementation/, uses "game.fifo".
+ */
 static const char *get_fifo_path(void) {
-    if (access(FIFO_PATH, F_OK) == 0)
+    struct stat st;
+    if (stat("implementation", &st) == 0 && S_ISDIR(st.st_mode))
         return FIFO_PATH;
     return "game.fifo";
 }
 
 int main(void) {
+    // Ignore SIGPIPE to avoid abnormal termination if reader closes pipe
+    signal(SIGPIPE, SIG_IGN);
+
     const char *fifo = get_fifo_path();
     int fd = -1;
     while ((fd = open(fifo, O_WRONLY)) < 0 && errno == EINTR);
+
     if (fd >= 0) {
         char ch = FIFO_OP_CHAR(OP_SHIELD_ACTIVATE);
         ssize_t written = 0;
