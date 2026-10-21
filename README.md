@@ -1,4 +1,4 @@
-# Space Shooter: Asynchronous IPC Subsystem & Autonomous Controller
+# Linux IPC Game Subsystem: Asynchronous POSIX Architecture & Autonomous Controller
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Language: C11](https://img.shields.io/badge/Language-C11-orange.svg)](#system-architecture)
