@@ -355,11 +355,11 @@ This implementation strictly complies with all academic and operational constrai
 
 ## Related Projects
 
-- **[Solar-Escape-RISCV-Navigator](https://github.com/yigitsarpavci/Solar-Escape-RISCV-Navigator)**: Bare-metal RISC-V assembly simulation for fuel-constrained westward autonomous flight navigation.
-- **[SchedSim-CPU-Scheduler](https://github.com/yigitsarpavci/SchedSim-CPU-Scheduler)**: Low-level CPU scheduling simulator written entirely in x86-64 GNU Assembly using direct Linux syscalls.
-- **[CoreMark-Workload-Profiling](https://github.com/yigitsarpavci/CoreMark-Workload-Profiling)**: Architectural benchmarking study and compiler optimization evaluation suite across RISC-V ISA extensions.
-- **[Spireslayer-Command-Interpreter](https://github.com/yigitsarpavci/Spireslayer-Command-Interpreter)**: C-based command interpreter featuring a custom recursive descent parser and backtracking logic.
-- **[Aura-Functional-Interpreter](https://github.com/yigitsarpavci/Aura-Functional-Interpreter)**: Custom functional programming language interpreter with first-class closures and lexical scoping.
+- **[Solar-Escape-RISCV-Navigator](https://github.com/yigitsarpavci/bare-metal-riscv-simulator)**: Bare-metal RISC-V assembly simulation for fuel-constrained westward autonomous flight navigation.
+- **[SchedSim-CPU-Scheduler](https://github.com/yigitsarpavci/x86-64-cpu-scheduler)**: Low-level CPU scheduling simulator written entirely in x86-64 GNU Assembly using direct Linux syscalls.
+- **[CoreMark-Workload-Profiling](https://github.com/yigitsarpavci/coremark-performance-profiling)**: Architectural benchmarking study and compiler optimization evaluation suite across RISC-V ISA extensions.
+- **[Spireslayer-Command-Interpreter](https://github.com/yigitsarpavci/unix-command-interpreter)**: C-based command interpreter featuring a custom recursive descent parser and backtracking logic.
+- **[Aura-Functional-Interpreter](https://github.com/yigitsarpavci/functional-language-interpreter)**: Custom functional programming language interpreter with first-class closures and lexical scoping.
 
 ---
 
